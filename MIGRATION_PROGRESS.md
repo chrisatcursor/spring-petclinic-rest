@@ -6,7 +6,7 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 
 | Batch | Description | Status | Start | End | Files | Tests | Notes |
 |-------|-------------|--------|-------|-----|-------|-------|-------|
-| 0 | Build system (pom.xml + Kotlin config) | Pending | - | - | - | - | |
+| 0 | Build system (pom.xml + Kotlin config) | Complete | 2026-03-16T10:31:00Z | 2026-03-16T10:38:17Z | 1 modified (+2 dirs) | Compile PASS | Added kotlin-maven-plugin; Java compile reordered |
 | 1 | Model/entity classes | Pending | - | - | 0/11 | - | |
 | 2 | Mappers (replace MapStruct) | Pending | - | - | 0/7 | - | |
 | 3 | Repository interfaces + Spring Data JPA | Pending | - | - | 0/22 | - | |
@@ -22,7 +22,22 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 
 ## Batch Logs
 
-_Entries will be added as batches are completed._
+### Batch 0: Build system setup
+- **Started**: 2026-03-16T10:31:00Z
+- **Completed**: 2026-03-16T10:38:17Z
+- **Files converted**: 0 Java->Kotlin (build setup only)
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: Not run in this batch
+- **JaCoCo**: Not run
+- **Modernization changes**:
+  - Added Kotlin dependencies (`kotlin-stdlib`, `kotlin-reflect`)
+  - Added `kotlin-maven-plugin` with `spring` + `jpa` compiler plugins
+  - Configured Kotlin to compile main/test kotlin+java sources and OpenAPI generated sources
+  - Reordered Java compilation executions to run after Kotlin (`default-compile`/`default-testCompile` set to `none`)
+- **Edge cases discovered**:
+  - Kotlin+Java mixed compilation works with existing Java sources and MapStruct still enabled
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
 
 <!-- Template for each batch entry:
 
@@ -57,5 +72,5 @@ _Items flagged for human attention._
 ## Running Metrics
 
 - **Total files migrated**: 0 / 85
-- **Total batches complete**: 0 / 11
-- **Cumulative build time**: -
+- **Total batches complete**: 1 / 11
+- **Cumulative build time**: ~18s compile (batch 0)

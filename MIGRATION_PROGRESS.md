@@ -14,9 +14,9 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 | 5 | JDBC repository implementations | Complete | 2026-03-16T10:55:30Z | 2026-03-16T11:08:00Z | 11/11 | 222 tests pass | JDBC repositories/row mappers/extractor migrated to Kotlin |
 | 6 | Service layer | Complete | 2026-03-16T11:01:00Z | 2026-03-16T11:08:00Z | 4/4 | Compile+verify pass | Service interfaces/implementations migrated to Kotlin |
 | 7 | REST controllers + exception advice | Complete | 2026-03-16T11:09:00Z | 2026-03-16T11:24:08Z | 10/10 | Compile PASS | Controllers/advice migrated to Kotlin |
-| 8 | Validation, security, config, entry point | Complete | 2026-03-16T11:12:00Z | 2026-03-16T11:24:08Z | 9/9 | Compile PASS | Security/config/validation/util/app migrated to Kotlin |
-| 9 | Test files | Pending | - | - | 0/~20 | - | |
-| 10 | Cleanup + final verification | Pending | - | - | - | - | |
+| 8 | Validation, security, config, entry point | Complete | 2026-03-16T11:12:00Z | 2026-03-16T11:24:08Z | 9/9 | 222 tests pass | Security/config/validation/util/app migrated to Kotlin |
+| 9 | Test files | Complete | 2026-03-16T11:25:00Z | 2026-03-16T11:38:00Z | 21/21 | 222 tests pass | All test sources migrated to Kotlin |
+| 10 | Cleanup + final verification | Complete | 2026-03-16T11:38:00Z | 2026-03-16T11:40:15Z | cleanup | 222 tests pass | Removed last package-info.java and re-verified |
 
 **Baseline**: 222 tests, 0 failures, 54.3s build time, 85 Java source files
 
@@ -171,14 +171,46 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Completed**: 2026-03-16T11:24:08Z
 - **Files converted**: 9 Java->Kotlin
 - **Compile result**: PASS (`./mvnw compile`)
-- **Verify result**: Not run in this batch
-- **JaCoCo**: Not run
+- **Verify result**: 222 tests, 0 failures, 0 errors
+- **JaCoCo**: PASS
 - **Modernization changes**:
   - Migrated validation annotation/validator, security configs, roles bean, Swagger config, app entry point, and utilities
   - Preserved security query wiring and role constants used by SpEL expressions
   - Preserved call monitoring aspect and `EntityUtils` behavior
 - **Edge cases discovered**:
   - Maven Java incremental compilation cleared Kotlin outputs; fixed by setting `maven-compiler-plugin` `useIncrementalCompilation=false`
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
+### Batch 9: Test files
+- **Started**: 2026-03-16T11:25:00Z
+- **Completed**: 2026-03-16T11:38:00Z
+- **Files converted**: 21 Java->Kotlin
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: 222 tests, 0 failures, 0 errors
+- **JaCoCo**: PASS
+- **Modernization changes**:
+  - Migrated all `src/test/java` classes to `src/test/kotlin`
+  - Preserved MockMvc, profile-specific integration tests, and validator tests behavior
+  - Updated Mockito matcher usage for Kotlin null-safety compatibility
+- **Edge cases discovered**:
+  - Kotlin nullability required non-null coercion for DTO IDs in a few tests
+  - `ConstraintValidatorContext` parameter had to be mocked for non-null Kotlin signature
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
+### Batch 10: Cleanup + final verification
+- **Started**: 2026-03-16T11:38:00Z
+- **Completed**: 2026-03-16T11:40:15Z
+- **Files converted**: N/A (cleanup)
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: 222 tests, 0 failures, 0 errors
+- **JaCoCo**: PASS
+- **Modernization changes**:
+  - Deleted remaining handwritten Java file `src/main/java/org/springframework/samples/petclinic/rest/package-info.java`
+  - Confirmed no handwritten Java files remain in `src/main/java` or `src/test/java`
+- **Edge cases discovered**:
+  - None
 - **Linear issue**: N/A (grind workflow)
 - **PR**: Pending
 
@@ -214,6 +246,6 @@ _Items flagged for human attention._
 
 ## Running Metrics
 
-- **Total files migrated**: 81 / 85
-- **Total batches complete**: 9 / 11
-- **Cumulative build time**: ~18s compile (batch 0) + ~8s compile + ~24s verify (batch 1) + ~8s compile (batch 2) + ~8s compile (batch 3a) + ~10s compile + ~27s verify (batches 3b-6)
+- **Total files migrated**: 102 / 102 (81 main + 21 test)
+- **Total batches complete**: 11 / 11
+- **Cumulative build time**: includes repeated compile/verify checkpoints with final `./mvnw verify` green (222 tests)

@@ -13,8 +13,8 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 | 4 | JPA repository implementations | Complete | 2026-03-16T10:53:40Z | 2026-03-16T11:08:00Z | 7/7 | 222 tests pass | JPA repository implementations migrated to Kotlin |
 | 5 | JDBC repository implementations | Complete | 2026-03-16T10:55:30Z | 2026-03-16T11:08:00Z | 11/11 | 222 tests pass | JDBC repositories/row mappers/extractor migrated to Kotlin |
 | 6 | Service layer | Complete | 2026-03-16T11:01:00Z | 2026-03-16T11:08:00Z | 4/4 | Compile+verify pass | Service interfaces/implementations migrated to Kotlin |
-| 7 | REST controllers + exception advice | Pending | - | - | 0/10 | - | |
-| 8 | Validation, security, config, entry point | Pending | - | - | 0/~8 | - | |
+| 7 | REST controllers + exception advice | Complete | 2026-03-16T11:09:00Z | 2026-03-16T11:24:08Z | 10/10 | Compile PASS | Controllers/advice migrated to Kotlin |
+| 8 | Validation, security, config, entry point | Complete | 2026-03-16T11:12:00Z | 2026-03-16T11:24:08Z | 9/9 | Compile PASS | Security/config/validation/util/app migrated to Kotlin |
 | 9 | Test files | Pending | - | - | 0/~20 | - | |
 | 10 | Cleanup + final verification | Pending | - | - | - | - | |
 
@@ -150,6 +150,38 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Linear issue**: N/A (grind workflow)
 - **PR**: Pending
 
+### Batch 7: REST controllers + exception advice
+- **Started**: 2026-03-16T11:09:00Z
+- **Completed**: 2026-03-16T11:24:08Z
+- **Files converted**: 10 Java->Kotlin
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: Not run in this batch
+- **JaCoCo**: Not run
+- **Modernization changes**:
+  - Migrated all REST controllers and `ExceptionControllerAdvice` to Kotlin classes
+  - Preserved generated OpenAPI interface implementations and endpoint semantics
+  - Kept URI location header creation and role-based pre-authorization expressions
+- **Edge cases discovered**:
+  - Kotlin annotation argument typing required explicit arrays for `@CrossOrigin` and `@RequestMapping`
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
+### Batch 8: Validation, security, config, entry point
+- **Started**: 2026-03-16T11:12:00Z
+- **Completed**: 2026-03-16T11:24:08Z
+- **Files converted**: 9 Java->Kotlin
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: Not run in this batch
+- **JaCoCo**: Not run
+- **Modernization changes**:
+  - Migrated validation annotation/validator, security configs, roles bean, Swagger config, app entry point, and utilities
+  - Preserved security query wiring and role constants used by SpEL expressions
+  - Preserved call monitoring aspect and `EntityUtils` behavior
+- **Edge cases discovered**:
+  - Maven Java incremental compilation cleared Kotlin outputs; fixed by setting `maven-compiler-plugin` `useIncrementalCompilation=false`
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
 <!-- Template for each batch entry:
 
 ### Batch N: <description>
@@ -182,6 +214,6 @@ _Items flagged for human attention._
 
 ## Running Metrics
 
-- **Total files migrated**: 62 / 85
-- **Total batches complete**: 7 / 11
+- **Total files migrated**: 81 / 85
+- **Total batches complete**: 9 / 11
 - **Cumulative build time**: ~18s compile (batch 0) + ~8s compile + ~24s verify (batch 1) + ~8s compile (batch 2) + ~8s compile (batch 3a) + ~10s compile + ~27s verify (batches 3b-6)

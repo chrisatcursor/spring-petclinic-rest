@@ -1,0 +1,34 @@
+---
+description: Orients agents working on migration branches
+globs:
+alwaysApply: false
+---
+
+# Migration Guide
+
+You are working on a Java-to-Kotlin migration of the Spring PetClinic REST API.
+
+## First Steps
+
+1. Read `MIGRATION_BASELINE.md` at the repo root for baseline metrics (222 tests, 54s build time)
+2. Read `.cursor/skills/kotlin-migration/SKILL.md` for migration patterns, edge cases, and decisions
+3. Check which branch you are on:
+   - `migration/kotlin-linear`: You are the orchestrating agent. Read `.cursor/skills/linear-orchestration/SKILL.md` for your workflow. Use Linear to track progress.
+   - `migration/kotlin-grind`: You are doing a one-shot migration. Read `.cursor/skills/grind-migration/SKILL.md` for your instructions.
+
+## Resources
+
+- **Migration patterns**: `.cursor/skills/kotlin-migration/SKILL.md`
+- **PR format**: `.cursor/skills/pr-composition/SKILL.md`
+- **Linear workflow**: `.cursor/skills/linear-orchestration/SKILL.md`
+- **Subagent configs**: `.cursor/agents/` (inventory, migrate-batch, verify-migration, modernize-kotlin, security-scan)
+- **Baseline metrics**: `MIGRATION_BASELINE.md`
+- **Progress tracking**: `MIGRATION_PROGRESS.md` -- update this after every batch
+
+## Rules
+
+- Always update `MIGRATION_PROGRESS.md` after completing any work
+- Run `./mvnw verify` after every batch to confirm no regressions
+- Only push to the `ChrisatCursor` fork, never to upstream `spring-petclinic`
+- Generated code (OpenAPI DTOs/API in `target/generated-sources/`) stays as Java
+- Set `JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home` before running Maven

@@ -1,0 +1,22 @@
+---
+description: Prevent regression to Java during Kotlin migration
+globs:
+alwaysApply: true
+---
+
+# No New Java
+
+This codebase is being migrated from Java to Kotlin. Do not:
+- Create new `.java` files in `src/main/java/` or `src/test/java/`
+- Use Java-style getter/setter patterns when Kotlin properties work
+- Use `Optional<T>` when nullable types (`T?`) are available
+- Use Java streams when Kotlin collection functions (`map`, `filter`, `firstOrNull`) are available
+- Use field injection (`@Autowired` on fields) -- use constructor injection
+- Use `public` modifier (it's the default in Kotlin)
+- Use data classes for JPA entities (only for DTOs that are not JPA-managed)
+- Write explicit no-arg constructors for `@Entity` classes (the `kotlin-jpa` plugin handles this)
+- Manually add `open` to Spring-annotated classes (the `kotlin-spring` plugin handles this)
+
+Write idiomatic Kotlin. When in doubt, read `.cursor/skills/kotlin-migration/SKILL.md`.
+
+**Exception**: Generated code in `target/generated-sources/` is Java and stays Java. Do not convert it.

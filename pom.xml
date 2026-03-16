@@ -23,7 +23,6 @@
         <spring-data-jdbc.version>1.2.1.RELEASE</spring-data-jdbc.version>
         <springdoc-openapi-ui.version>3.0.2</springdoc-openapi-ui.version>
         <jackson-databind-nullable.version>0.2.9</jackson-databind-nullable.version>
-        <mapstruct.version>1.6.3</mapstruct.version>
         <kotlin.version>2.1.10</kotlin.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
 
@@ -171,16 +170,6 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
             <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -480,26 +469,6 @@
                         <goals>
                             <goal>compile</goal>
                         </goals>
-                        <configuration>
-                            <annotationProcessorPaths>
-                                <path>
-                                    <groupId>org.mapstruct</groupId>
-                                    <artifactId>mapstruct-processor</artifactId>
-                                    <version>${mapstruct.version}</version>
-                                </path>
-                            </annotationProcessorPaths>
-                            <compilerArgs>
-                                <compilerArg>
-                                    -Amapstruct.suppressGeneratorTimestamp=true
-                                </compilerArg>
-                                <compilerArg>
-                                    -Amapstruct.suppressGeneratorVersionInfoComment=true
-                                </compilerArg>
-                                <compilerArg>
-                                    -Amapstruct.defaultComponentModel=spring
-                                </compilerArg>
-                            </compilerArgs>
-                        </configuration>
                     </execution>
                     <execution>
                         <id>java-test-compile</id>

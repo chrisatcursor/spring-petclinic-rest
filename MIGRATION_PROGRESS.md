@@ -8,7 +8,7 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 |-------|-------------|--------|-------|-----|-------|-------|-------|
 | 0 | Build system (pom.xml + Kotlin config) | Complete | 2026-03-16T10:31:00Z | 2026-03-16T10:38:17Z | 1 modified (+2 dirs) | Compile PASS | Added kotlin-maven-plugin; Java compile reordered |
 | 1 | Model/entity classes | Complete | 2026-03-16T10:38:30Z | 2026-03-16T10:46:38Z | 11/11 | 222 tests pass | Migrated model package to Kotlin and removed Java/package-info |
-| 2 | Mappers (replace MapStruct) | Pending | - | - | 0/7 | - | |
+| 2 | Mappers (replace MapStruct) | Complete | 2026-03-16T10:46:45Z | 2026-03-16T10:49:56Z | 7/7 | Compile PASS | Manual Kotlin mapper components replaced MapStruct |
 | 3 | Repository interfaces + Spring Data JPA | Pending | - | - | 0/22 | - | |
 | 4 | JPA repository implementations | Pending | - | - | 0/7 | - | |
 | 5 | JDBC repository implementations | Pending | - | - | 0/11 | - | |
@@ -57,6 +57,23 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Linear issue**: N/A (grind workflow)
 - **PR**: Pending
 
+### Batch 2: Mappers (replace MapStruct)
+- **Started**: 2026-03-16T10:46:45Z
+- **Completed**: 2026-03-16T10:49:56Z
+- **Files converted**: 7 Java->Kotlin
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: Not run in this batch
+- **JaCoCo**: Not run
+- **Modernization changes**:
+  - Replaced MapStruct interfaces with manual Kotlin `@Component` mappers
+  - Implemented explicit collection mapping and DTO/entity transformations
+  - Removed MapStruct dependencies and compiler annotation processor config from `pom.xml`
+- **Edge cases discovered**:
+  - Mapper method names preserved (including `toSpecialtys`) to avoid test/controller breakage
+  - Null-safe mapping required for fields that remain nullable in entities
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
 <!-- Template for each batch entry:
 
 ### Batch N: <description>
@@ -89,6 +106,6 @@ _Items flagged for human attention._
 
 ## Running Metrics
 
-- **Total files migrated**: 11 / 85
-- **Total batches complete**: 2 / 11
-- **Cumulative build time**: ~18s compile (batch 0) + ~8s compile + ~24s verify (batch 1)
+- **Total files migrated**: 18 / 85
+- **Total batches complete**: 3 / 11
+- **Cumulative build time**: ~18s compile (batch 0) + ~8s compile + ~24s verify (batch 1) + ~8s compile (batch 2)

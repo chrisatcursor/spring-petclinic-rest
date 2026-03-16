@@ -9,7 +9,7 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 | 0 | Build system (pom.xml + Kotlin config) | Complete | 2026-03-16T10:31:00Z | 2026-03-16T10:38:17Z | 1 modified (+2 dirs) | Compile PASS | Added kotlin-maven-plugin; Java compile reordered |
 | 1 | Model/entity classes | Complete | 2026-03-16T10:38:30Z | 2026-03-16T10:46:38Z | 11/11 | 222 tests pass | Migrated model package to Kotlin and removed Java/package-info |
 | 2 | Mappers (replace MapStruct) | Complete | 2026-03-16T10:46:45Z | 2026-03-16T10:49:56Z | 7/7 | Compile PASS | Manual Kotlin mapper components replaced MapStruct |
-| 3 | Repository interfaces + Spring Data JPA | Pending | - | - | 0/22 | - | |
+| 3 | Repository interfaces + Spring Data JPA | In Progress | 2026-03-16T10:50:05Z | - | 7/22 | Compile PASS | Repository interfaces migrated; Spring Data JPA impls pending |
 | 4 | JPA repository implementations | Pending | - | - | 0/7 | - | |
 | 5 | JDBC repository implementations | Pending | - | - | 0/11 | - | |
 | 6 | Service layer | Pending | - | - | 0/4 | - | |
@@ -74,6 +74,21 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Linear issue**: N/A (grind workflow)
 - **PR**: Pending
 
+### Batch 3a: Repository interfaces
+- **Started**: 2026-03-16T10:50:05Z
+- **Completed**: 2026-03-16T10:51:49Z
+- **Files converted**: 7 Java->Kotlin
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: Not run in this sub-batch
+- **JaCoCo**: Not run
+- **Modernization changes**:
+  - Migrated all repository interfaces to Kotlin
+  - Added `@Throws(DataAccessException::class)` for Java interop compatibility
+- **Edge cases discovered**:
+  - Keep nullable `Int?` parameter in `VisitRepository.findByPetId` to preserve Java signature behavior
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
 <!-- Template for each batch entry:
 
 ### Batch N: <description>
@@ -106,6 +121,6 @@ _Items flagged for human attention._
 
 ## Running Metrics
 
-- **Total files migrated**: 18 / 85
+- **Total files migrated**: 25 / 85
 - **Total batches complete**: 3 / 11
-- **Cumulative build time**: ~18s compile (batch 0) + ~8s compile + ~24s verify (batch 1) + ~8s compile (batch 2)
+- **Cumulative build time**: ~18s compile (batch 0) + ~8s compile + ~24s verify (batch 1) + ~8s compile (batch 2) + ~8s compile (batch 3a)

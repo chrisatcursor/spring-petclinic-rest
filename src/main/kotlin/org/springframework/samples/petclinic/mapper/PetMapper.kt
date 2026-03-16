@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class PetMapper(private val visitMapper: VisitMapper) {
-    fun toPetDto(pet: Pet): PetDto =
-        PetDto().apply {
+    fun toPetDto(pet: Pet?): PetDto? {
+        pet ?: return null
+        return PetDto().apply {
             id = pet.id
             name = pet.name
             birthDate = pet.birthDate
@@ -19,8 +20,9 @@ class PetMapper(private val visitMapper: VisitMapper) {
             ownerId = pet.owner?.id
             visits = toVisitsDtoList(pet.getVisits())
         }
+    }
 
-    fun toPetsDto(pets: Collection<Pet>): Collection<PetDto> = pets.map { toPetDto(it) }
+    fun toPetsDto(pets: Collection<Pet>): Collection<PetDto> = pets.mapNotNull { toPetDto(it) }
 
     fun toPets(pets: Collection<PetDto>): Collection<Pet> = pets.map { toPet(it) }
 

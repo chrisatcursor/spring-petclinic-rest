@@ -15,7 +15,7 @@ class OwnerMapper(private val petMapper: PetMapper) {
             address = owner.address
             city = owner.city
             telephone = owner.telephone
-            pets = owner.getPets().map { petMapper.toPetDto(it) }
+            pets = owner.getPets().mapNotNull { petMapper.toPetDto(it) }
         }
 
     fun toOwner(ownerDto: OwnerDto): Owner =

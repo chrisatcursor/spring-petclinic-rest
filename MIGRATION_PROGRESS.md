@@ -9,10 +9,10 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 | 0 | Build system (pom.xml + Kotlin config) | Complete | 2026-03-16T10:31:00Z | 2026-03-16T10:38:17Z | 1 modified (+2 dirs) | Compile PASS | Added kotlin-maven-plugin; Java compile reordered |
 | 1 | Model/entity classes | Complete | 2026-03-16T10:38:30Z | 2026-03-16T10:46:38Z | 11/11 | 222 tests pass | Migrated model package to Kotlin and removed Java/package-info |
 | 2 | Mappers (replace MapStruct) | Complete | 2026-03-16T10:46:45Z | 2026-03-16T10:49:56Z | 7/7 | Compile PASS | Manual Kotlin mapper components replaced MapStruct |
-| 3 | Repository interfaces + Spring Data JPA | In Progress | 2026-03-16T10:50:05Z | - | 7/22 | Compile PASS | Repository interfaces migrated; Spring Data JPA impls pending |
-| 4 | JPA repository implementations | Pending | - | - | 0/7 | - | |
-| 5 | JDBC repository implementations | Pending | - | - | 0/11 | - | |
-| 6 | Service layer | Pending | - | - | 0/4 | - | |
+| 3 | Repository interfaces + Spring Data JPA | Complete | 2026-03-16T10:50:05Z | 2026-03-16T11:08:00Z | 22/22 | 222 tests pass | Repository interfaces + Spring Data JPA Kotlin migration complete |
+| 4 | JPA repository implementations | Complete | 2026-03-16T10:53:40Z | 2026-03-16T11:08:00Z | 7/7 | 222 tests pass | JPA repository implementations migrated to Kotlin |
+| 5 | JDBC repository implementations | Complete | 2026-03-16T10:55:30Z | 2026-03-16T11:08:00Z | 11/11 | 222 tests pass | JDBC repositories/row mappers/extractor migrated to Kotlin |
+| 6 | Service layer | Complete | 2026-03-16T11:01:00Z | 2026-03-16T11:08:00Z | 4/4 | Compile+verify pass | Service interfaces/implementations migrated to Kotlin |
 | 7 | REST controllers + exception advice | Pending | - | - | 0/10 | - | |
 | 8 | Validation, security, config, entry point | Pending | - | - | 0/~8 | - | |
 | 9 | Test files | Pending | - | - | 0/~20 | - | |
@@ -89,6 +89,67 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Linear issue**: N/A (grind workflow)
 - **PR**: Pending
 
+### Batch 3b: Spring Data JPA repositories
+- **Started**: 2026-03-16T10:51:55Z
+- **Completed**: 2026-03-16T11:08:00Z
+- **Files converted**: 15 Java->Kotlin
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: 222 tests, 0 failures, 0 errors (validated at end of repository+service sequence)
+- **JaCoCo**: PASS
+- **Modernization changes**:
+  - Converted Spring Data repository interfaces and override implementations to Kotlin
+  - Preserved JPQL query annotations and profile wiring
+- **Edge cases discovered**:
+  - Required clean build once after MapStruct removal to clear stale generated mapper impl classes
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
+### Batch 4: JPA repository implementations
+- **Started**: 2026-03-16T10:53:40Z
+- **Completed**: 2026-03-16T11:08:00Z
+- **Files converted**: 7 Java->Kotlin (+ deleted package-info)
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: 222 tests, 0 failures, 0 errors
+- **JaCoCo**: PASS
+- **Modernization changes**:
+  - Migrated `EntityManager`-backed repositories to Kotlin classes
+  - Preserved delete cascades and custom query behavior
+- **Edge cases discovered**:
+  - Retained nullable behavior for entity IDs used in string-interpolated JPQL deletes
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
+### Batch 5: JDBC repository implementations
+- **Started**: 2026-03-16T10:55:30Z
+- **Completed**: 2026-03-16T11:08:00Z
+- **Files converted**: 11 Java->Kotlin (+ deleted package-info)
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: 222 tests, 0 failures, 0 errors
+- **JaCoCo**: PASS
+- **Modernization changes**:
+  - Migrated JDBC repositories, row mappers, and result-set extractor to Kotlin
+  - Preserved SQL statements and transactional delete behavior
+- **Edge cases discovered**:
+  - Clean rebuild required to validate against stale target outputs while iterating
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
+### Batch 6: Service layer
+- **Started**: 2026-03-16T11:01:00Z
+- **Completed**: 2026-03-16T11:08:00Z
+- **Files converted**: 4 Java->Kotlin
+- **Compile result**: PASS (`./mvnw clean compile`)
+- **Verify result**: 222 tests, 0 failures, 0 errors
+- **JaCoCo**: PASS
+- **Modernization changes**:
+  - Migrated `ClinicService`/`UserService` interfaces and implementations to Kotlin
+  - Replaced Java `Supplier<T>` helper with Kotlin lambda-based helper
+  - Converted `UserServiceImpl` to constructor injection
+- **Edge cases discovered**:
+  - Nullability constraints required preserving Java-compatible behavior for controller null checks
+- **Linear issue**: N/A (grind workflow)
+- **PR**: Pending
+
 <!-- Template for each batch entry:
 
 ### Batch N: <description>
@@ -121,6 +182,6 @@ _Items flagged for human attention._
 
 ## Running Metrics
 
-- **Total files migrated**: 25 / 85
-- **Total batches complete**: 3 / 11
-- **Cumulative build time**: ~18s compile (batch 0) + ~8s compile + ~24s verify (batch 1) + ~8s compile (batch 2) + ~8s compile (batch 3a)
+- **Total files migrated**: 62 / 85
+- **Total batches complete**: 7 / 11
+- **Cumulative build time**: ~18s compile (batch 0) + ~8s compile + ~24s verify (batch 1) + ~8s compile (batch 2) + ~8s compile (batch 3a) + ~10s compile + ~27s verify (batches 3b-6)

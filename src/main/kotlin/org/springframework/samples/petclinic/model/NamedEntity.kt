@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.model;
+package org.springframework.samples.petclinic.model
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.Column
+import jakarta.persistence.MappedSuperclass
+import jakarta.validation.constraints.NotEmpty
 
-/**
- * @author Juergen Hoeller
- *         Can be Cat, Dog, Hamster...
- */
-@Entity
-@Table(name = "types")
-public class PetType extends NamedEntity {
+@MappedSuperclass
+open class NamedEntity : BaseEntity() {
 
+    @Column(name = "name")
+    @field:NotEmpty
+    open var name: String? = null
+
+    override fun toString(): String = name ?: ""
 }

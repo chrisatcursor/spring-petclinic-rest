@@ -6,8 +6,8 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 
 | Batch | Description | Status | Start | End | Files | Tests | Notes |
 |-------|-------------|--------|-------|-----|-------|-------|-------|
-| 0 | Build system (pom.xml + Kotlin config) | Pending | - | - | - | - | |
-| 1 | Model/entity classes | Pending | - | - | 0/11 | - | |
+| 0 | Build system (pom.xml + Kotlin config) | Done | - | - | pom | 222 | Kotlin 2.1.10, jpa+spring plugins |
+| 1 | Model/entity classes | Done | 2026-03-18 | 2026-03-18 | 11/11 | 222 | RES-6 |
 | 2 | Mappers (replace MapStruct) | Pending | - | - | 0/7 | - | |
 | 3 | Repository interfaces + Spring Data JPA | Pending | - | - | 0/22 | - | |
 | 4 | JPA repository implementations | Pending | - | - | 0/7 | - | |
@@ -22,23 +22,17 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 
 ## Batch Logs
 
-_Entries will be added as batches are completed._
-
-<!-- Template for each batch entry:
-
-### Batch N: <description>
-- **Started**: <timestamp>
-- **Completed**: <timestamp>
-- **Files converted**: <count>
-- **Compile result**: PASS/FAIL
-- **Verify result**: <test count> tests, <failures> failures
-- **JaCoCo**: PASS/FAIL
-- **Modernization changes**: <summary>
-- **Edge cases discovered**: <any new findings>
-- **Linear issue**: <link>
-- **PR**: <link>
-
--->
+### Batch 1: Model/entity classes
+- **Started**: 2026-03-18
+- **Completed**: 2026-03-18
+- **Files**: `BaseEntity`, `NamedEntity`, `Person`, `Owner`, `Pet`, `PetType`, `Role`, `Specialty`, `User`, `Vet`, `Visit` (all under `src/main/kotlin/.../model/`)
+- **Compile result**: PASS
+- **Verify result**: 222 tests, 0 failures
+- **JaCoCo**: PASS
+- **Modernization**: `User.addRole` — avoid `!!` via `also` initialization of roles set
+- **Edge cases**: Working tree had model `.kt` deleted; restored from branch + small idiom fix
+- **Linear issue**: [RES-6](https://linear.app/cursor-solutions/issue/RES-6) — Migrate model/entity classes to Kotlin
+- **PR**: https://github.com/ChrisatCursor/spring-petclinic-rest/pull/2
 
 ## Decision Log
 
@@ -56,6 +50,6 @@ _Items flagged for human attention._
 
 ## Running Metrics
 
-- **Total files migrated**: 0 / 85
-- **Total batches complete**: 0 / 11
-- **Cumulative build time**: -
+- **Total files migrated**: 11 / 85 (model layer)
+- **Total batches complete**: 2 / 11 (0 + 1)
+- **Last verify**: 222 tests, BUILD SUCCESS (~19s)

@@ -32,7 +32,7 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Modernization**: `User.addRole` — avoid `!!` via `also` initialization of roles set
 - **Edge cases**: Working tree had model `.kt` deleted; restored from branch + small idiom fix
 - **Linear issue**: [RES-6](https://linear.app/cursor-solutions/issue/RES-6) — Migrate model/entity classes to Kotlin
-- **PR**: (link after merge to `migration/kotlin-linear`)
+- **PR**: https://github.com/ChrisatCursor/spring-petclinic-rest/pull/2
 
 ## Decision Log
 

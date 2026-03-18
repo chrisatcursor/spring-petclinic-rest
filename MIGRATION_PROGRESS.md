@@ -34,8 +34,7 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
   - `@field:Access(AccessType.FIELD)` on `Owner.pets`, `Pet.visits`, `Vet.specialties` so JPQL `owner.pets` resolves and JVM has single `getPets()`/`getVisits()`/`getSpecialties()` returning sorted lists
   - `open class Pet` for `JdbcPet` subclass
   - Nullable `String?` where Java allowed null (mappers/controllers call setters with null); `NamedEntity.name`, `Person` names, `Owner` address fields, `Visit.description`
-- **Linear issue**: _(link when PR opened)_
-- **PR**: _(link when created)_
+- **PR**: https://github.com/chrisatcursor/spring-petclinic-rest/pull/2
 
 ## Decision Log
 

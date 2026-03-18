@@ -43,11 +43,9 @@ class User {
 
     @JsonIgnore
     fun addRole(roleName: String) {
-        if (roles == null) {
-            roles = HashSet()
-        }
+        val set = roles ?: HashSet<Role>().also { roles = it }
         val role = Role()
         role.name = roleName
-        roles!!.add(role)
+        set.add(role)
     }
 }

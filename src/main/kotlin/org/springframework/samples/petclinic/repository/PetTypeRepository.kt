@@ -13,29 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.springframework.samples.petclinic.repository
 
-package org.springframework.samples.petclinic.repository;
+import java.util.Collection
+import org.springframework.dao.DataAccessException
+import org.springframework.samples.petclinic.model.PetType
 
-import java.util.Collection;
+interface PetTypeRepository {
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.PetType;
+    @Throws(DataAccessException::class)
+    fun findById(id: Int): PetType
 
-/**
- * @author Vitaliy Fedoriv
- *
- */
+    @Throws(DataAccessException::class)
+    fun findByName(name: String): PetType
 
-public interface PetTypeRepository {
+    @Throws(DataAccessException::class)
+    fun findAll(): Collection<PetType>
 
-	PetType findById(int id) throws DataAccessException;
+    @Throws(DataAccessException::class)
+    fun save(petType: PetType)
 
-    PetType findByName(String name) throws DataAccessException;
-
-	Collection<PetType> findAll() throws DataAccessException;
-
-	void save(PetType petType) throws DataAccessException;
-
-	void delete(PetType petType) throws DataAccessException;
-
+    @Throws(DataAccessException::class)
+    fun delete(petType: PetType)
 }

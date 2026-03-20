@@ -13,20 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.springframework.samples.petclinic.repository.springdatajpa
 
-package org.springframework.samples.petclinic.repository.springdatajpa;
-
-import org.springframework.context.annotation.Profile;
-import org.springframework.samples.petclinic.model.Pet;
-
-/**
- * @author Vitaliy Fedoriv
- *
- */
+import org.springframework.context.annotation.Profile
+import org.springframework.samples.petclinic.model.PetType
 
 @Profile("spring-data-jpa")
-public interface PetRepositoryOverride {
-	
-	void delete(Pet pet);
+interface PetTypeRepositoryOverride {
 
+    fun delete(petType: PetType)
 }

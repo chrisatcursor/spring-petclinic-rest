@@ -9,7 +9,7 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 | 0 | Build system (pom.xml + Kotlin config) | Pending | - | - | - | - | |
 | 1 | Model/entity classes | Complete | 2026-03-19 | 2026-03-19 | 11/11 | 222/222 | RES-6 complete |
 | 2 | Mappers (replace MapStruct) | Complete | 2026-03-19 | 2026-03-19 | 7/7 | 222/222 | RES-7 complete |
-| 3 | Repository interfaces + Spring Data JPA | Pending | - | - | 0/22 | - | |
+| 3 | Repository interfaces + Spring Data JPA | Complete | 2026-03-20 | 2026-03-20 | 22/22 | 222/222 | java.util.* collection types for Java repo impls |
 | 4 | JPA repository implementations | Pending | - | - | 0/7 | - | |
 | 5 | JDBC repository implementations | Pending | - | - | 0/11 | - | |
 | 6 | Service layer | Pending | - | - | 0/4 | - | |
@@ -32,6 +32,18 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Modernization changes**: Migrated all model classes to Kotlin under `src/main/kotlin/org/springframework/samples/petclinic/model/`, preserved inheritance and JPA mappings, and kept generated OpenAPI sources in Java.
 - **Edge cases discovered**: Preserved nullable model properties for Java test compatibility (`null` assignment in validation-path tests) and ensured Owner relation field naming supports existing JPQL fetch joins.
 - **Linear issue**: https://linear.app/cursor-solutions/issue/RES-6/batch-1-migrate-modelentity-classes-to-kotlin
+- **PR**: -
+
+### Batch 3: Repository interfaces + Spring Data JPA
+- **Started**: 2026-03-20T01:45:00Z
+- **Completed**: 2026-03-20T01:45:00Z
+- **Files converted**: 22
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: 222 tests, 0 failures (`./mvnw verify`)
+- **JaCoCo**: PASS (coverage checks met)
+- **Modernization changes**: Migrated domain repository interfaces and `springdatajpa` package to Kotlin under `src/main/kotlin/.../repository/`, using explicit `java.util.Collection` / `List` / `Set` and `Integer?` where required so existing Java JDBC/JPA implementations remain valid `@Override` targets.
+- **Edge cases discovered**: Kotlin `Collection` is not JVM-compatible with Java `Collection` for interface implementation; use `java.util` collection types on public repository APIs.
+- **Linear issue**: -
 - **PR**: -
 
 ### Batch 2: Replace MapStruct mappers with Kotlin mapping functions
@@ -78,6 +90,6 @@ _Items flagged for human attention._
 
 ## Running Metrics
 
-- **Total files migrated**: 18 / 85
-- **Total batches complete**: 2 / 11
+- **Total files migrated**: 40 / 85
+- **Total batches complete**: 3 / 11
 - **Cumulative build time**: 30.5s

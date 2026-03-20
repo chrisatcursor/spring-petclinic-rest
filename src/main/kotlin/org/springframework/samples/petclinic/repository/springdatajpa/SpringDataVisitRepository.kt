@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.repository.springdatajpa;
+package org.springframework.samples.petclinic.repository.springdatajpa
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.data.repository.Repository;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.repository.VisitRepository;
-
-/**
- * Spring Data JPA specialization of the {@link VisitRepository} interface
- *
- * @author Michael Isvy
- * @author Vitaliy Fedoriv
- */
+import org.springframework.context.annotation.Profile
+import org.springframework.data.repository.Repository
+import org.springframework.samples.petclinic.model.Visit
+import org.springframework.samples.petclinic.repository.VisitRepository
 
 @Profile("spring-data-jpa")
-public interface SpringDataVisitRepository extends VisitRepository, Repository<Visit, Integer>, VisitRepositoryOverride {
-}
+interface SpringDataVisitRepository :
+    VisitRepository,
+    Repository<Visit, Int>,
+    VisitRepositoryOverride

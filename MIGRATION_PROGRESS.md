@@ -45,7 +45,7 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Edge cases discovered**: Kotlin `Collection` is not JVM-compatible with Java `Collection` for interface implementation; use `java.util` collection types on public repository APIs.
 - **Security scan (post-batch)**: PASS — no changes under `security/`; `BasicAuthenticationConfig` JDBC `usersByUsernameQuery` unchanged; `UserRepository` API still `save(User)` for Java repository implementations.
 - **Linear issue**: https://linear.app/cursor-solutions/issue/RES-8/batch-3-migrate-repository-interfaces-spring-data-jpa-impls
-- **PR**: _(opened in same session — see ship step)_
+- **PR**: https://github.com/ChrisatCursor/spring-petclinic-rest/pull/4
 
 ### Batch 2: Replace MapStruct mappers with Kotlin mapping functions
 - **Started**: 2026-03-19T04:36:00Z

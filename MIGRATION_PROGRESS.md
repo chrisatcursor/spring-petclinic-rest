@@ -10,7 +10,7 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 | 1 | Model/entity classes | Complete | 2026-03-19 | 2026-03-19 | 11/11 | 222/222 | RES-6 complete |
 | 2 | Mappers (replace MapStruct) | Complete | 2026-03-19 | 2026-03-19 | 7/7 | 222/222 | RES-7 complete |
 | 3 | Repository interfaces + Spring Data JPA | Complete | 2026-03-20 | 2026-03-20 | 22/22 | 222/222 | java.util.* collection types for Java repo impls |
-| 4 | JPA repository implementations | Pending | - | - | 0/7 | - | |
+| 4 | JPA repository implementations | Complete | 2026-03-20 | 2026-03-20 | 8/8 | 222/222 | RES-9 complete; includes package-info.java deletion |
 | 5 | JDBC repository implementations | Pending | - | - | 0/11 | - | |
 | 6 | Service layer | Pending | - | - | 0/4 | - | |
 | 7 | REST controllers + exception advice | Pending | - | - | 0/10 | - | |
@@ -59,6 +59,18 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Linear issue**: https://linear.app/cursor-solutions/issue/RES-7/batch-2-replace-mapstruct-mappers-with-kotlin-mapping-functions
 - **PR**: -
 
+### Batch 4: JPA repository implementations
+- **Started**: 2026-03-20T10:20:00Z
+- **Completed**: 2026-03-20T10:30:00Z
+- **Files converted**: 8 (7 JPA impls + package-info.java deleted)
+- **Compile result**: PASS (`./mvnw compile`)
+- **Verify result**: 222 tests, 0 failures (`./mvnw verify`)
+- **JaCoCo**: PASS (coverage checks met)
+- **Modernization changes**: Converted all 7 `repository/jpa/` JPA implementation classes to Kotlin with constructor-injected `@PersistenceContext EntityManager`. Preserved all JPQL queries, fetch joins, and delete cascades exactly. Removed empty Java `repository/jpa/` directory.
+- **Edge cases discovered**: `findSpecialtiesByNameIn` return type required explicit cast to `java.util.List` because the Kotlin interface declares `java.util.List` and JPA's `.resultList` returns a platform type that doesn't auto-coerce.
+- **Linear issue**: https://linear.app/cursor-solutions/issue/RES-9/batch-4-migrate-jpa-repository-implementations
+- **PR**: https://github.com/ChrisatCursor/spring-petclinic-rest/pull/5
+
 <!-- Template for each batch entry:
 
 ### Batch N: <description>
@@ -91,6 +103,6 @@ _Items flagged for human attention._
 
 ## Running Metrics
 
-- **Total files migrated**: 40 / 85
-- **Total batches complete**: 3 / 11
-- **Cumulative build time**: 30.5s
+- **Total files migrated**: 48 / 85
+- **Total batches complete**: 4 / 11
+- **Cumulative build time**: 47s

@@ -69,7 +69,7 @@ Tracking the Java-to-Kotlin migration of Spring PetClinic REST API.
 - **Modernization changes**: Converted all 7 `repository/jpa/` JPA implementation classes to Kotlin with constructor-injected `@PersistenceContext EntityManager`. Preserved all JPQL queries, fetch joins, and delete cascades exactly. Removed empty Java `repository/jpa/` directory.
 - **Edge cases discovered**: `findSpecialtiesByNameIn` return type required explicit cast to `java.util.List` because the Kotlin interface declares `java.util.List` and JPA's `.resultList` returns a platform type that doesn't auto-coerce.
 - **Linear issue**: https://linear.app/cursor-solutions/issue/RES-9/batch-4-migrate-jpa-repository-implementations
-- **PR**: -
+- **PR**: https://github.com/ChrisatCursor/spring-petclinic-rest/pull/5
 
 <!-- Template for each batch entry:
 

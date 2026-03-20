@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.model;
+package org.springframework.samples.petclinic.model
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
 
 /**
- * @author Juergen Hoeller
- *         Can be Cat, Dog, Hamster...
+ * Can be Cat, Dog, Hamster...
  */
 @Entity
 @Table(name = "types")
-public class PetType extends NamedEntity {
-
-}
+class PetType : NamedEntity()

@@ -13,36 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.repository.jdbc;
+package org.springframework.samples.petclinic.repository.jdbc
 
-import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.Pet
 
 /**
  * Subclass of Pet that carries temporary id properties which are only relevant for a JDBC implementation of the
  * PetRepository.
- *
- * @author Juergen Hoeller
  */
-public class JdbcPet extends Pet {
-
-    private int typeId;
-
-    private int ownerId;
-
-    public int getTypeId() {
-        return this.typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
-
-    public int getOwnerId() {
-        return this.ownerId;
-    }
-
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
-    }
-
+class JdbcPet : Pet() {
+    var typeId: Int = 0
+    var ownerId: Int = 0
 }
